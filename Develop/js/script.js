@@ -7,7 +7,7 @@ var dayPlanEl = $("<h1>");
 // dayPlanEl.textContent =
 dayPlanEl.text("'A day planned is worth two in the bush'");
 // dayPlanEL.className = 'fancy';
-dayPlanEl.attr("class", "fancy");
+//dayPlanEl.attr("class", "fancy");
 
 //JS equivalent would be  containerEl.appendChild(dayPlanEl);
 containerEl.append(dayPlanEl);
