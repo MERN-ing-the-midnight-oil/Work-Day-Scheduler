@@ -4,19 +4,19 @@ var containerEl = $("#container");
 var todayIs = moment();
 $("#todayIs").text(todayIs.format("MMM Do, YYYY"));
 
-var timeNow = moment().format("hh:mm:ss"); //this needs to udate constantly , not just on load
+var timeNow = moment().format("hh:mm:ss"); //this needs to udate constantly somehow , not just on load
 $("#timeNow").text(timeNow);
 
 var epochTimeNow = moment().format("X");
-console.log("current epoch time in seconds " + epochTimeNow);
+console.log("current epoch time in seconds " + epochTimeNow); //should be the number of seconds since the epoch
 
-var secondsRemainder = epochTimeNow % 86400; //should be the number of seconds happening after the last midnight
+var secondsRemainder = epochTimeNow % 86400; // used modulus, should be the number of seconds happening after the last midnight
 console.log(
 	"Remainder of seconds after doing modulus 86400, the number of seconds in one day" +
 		secondsRemainder
 );
 
-var hoursRemainder = secondsRemainder / 3600;
+var hoursRemainder = secondsRemainder / 3600; //shoud be the military hour, but , frustratingly, is not.
 console.log(
 	"convert that to hours: SHOULD give the current military hour  " +
 		hoursRemainder
