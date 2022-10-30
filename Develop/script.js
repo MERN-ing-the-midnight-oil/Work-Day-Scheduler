@@ -6,11 +6,11 @@ $("#nineTextarea").val(localStorage.getItem("nineTextarea")); //gives the item i
 $("#tenTextarea").val(localStorage.getItem("tenTextarea"));
 $("#elevenTextarea").val(localStorage.getItem("elevenTextarea"));
 $("#twelveTextarea").val(localStorage.getItem("twelveTextarea"));
-$("#oneTextarea").val(localStorage.getItem("oneTextarea"));
-$("#twoTextarea").val(localStorage.getItem("twoTextarea"));
-$("#threeTextarea").val(localStorage.getItem("threeTextarea"));
-$("#fourTextarea").val(localStorage.getItem("fourTextarea"));
-$("#fiveTextarea").val(localStorage.getItem("fiveTextarea"));
+$("#oneTextarea").val(localStorage.getItem("thirteenTextarea"));
+$("#twoTextarea").val(localStorage.getItem("fourteenTextarea"));
+$("#threeTextarea").val(localStorage.getItem("fifteenTextarea"));
+$("#fourTextarea").val(localStorage.getItem("sixteenTextarea"));
+$("#fiveTextarea").val(localStorage.getItem("seventeenTextarea"));
 
 $(".saveBtn").on("click", function () {
 	//event listener , listening for clicks, on any save button
@@ -31,14 +31,26 @@ $(".saveBtn").on("click", function () {
 ////////////////
 var todayIs = moment();
 $("#todayIs").text(todayIs.format("MMM Do, YYYY"));
-var timeNow = moment().format("hh:mm:ss"); //this needs to udate constantly somehow , not just on load
-$("#timeNow").text(timeNow);
 
-//converts epoch time to the military hour of the day (west coast time)
-var epochTimeNow = moment().format("X");
-var secondsRemainder = epochTimeNow % 86400; // used modulus, should be the number of seconds happening since after our last midnight
-var hoursRemainder = secondsRemainder / 3600; //shoud be the military hour, GMT
-var westCoast = hoursRemainder - 7; //subtracts 7 from GMT to get pacific time zone time
+////////////setInterval calls the function every specified milliseconds
+setInterval(function () {
+	var timeNow = moment().format("hh:mm:ss");
+	$("#timeNow").text(timeNow);
+}, 1000);
+
+setInterval(function () {
+	//converts epoch time to the military hour of the day (west coast time)
+	var epochTimeNow = moment().format("X");
+	var secondsRemainder = epochTimeNow % 86400; // used modulus, should be the number of seconds happening since after our last midnight
+	var hoursRemainder = secondsRemainder / 3600; //shoud be the military hour, GMT
+	if (hoursRemainder < 7) {
+		var westCoast = hoursRemainder + 17; //adds 5 to GMT to get pacific time zone time
+	} else {
+		var westCoast = hoursRemainder - 7; //subtracts 7 from GMT to get pacific time zone time
+	}
+	$("#pacific").text(westCoast);
+	// if westCoast <0 THEN  westCoast = westCoast + 24 //to solve the late night converstion problem
+}, 1000);
 
 // WHEN I open the planner
 // THEN the current day is displayed at the top of the calendar
