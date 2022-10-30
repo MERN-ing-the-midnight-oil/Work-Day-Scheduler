@@ -43,7 +43,11 @@ for (let i = 0; i < timeBlocksEl.length; i++) {
 	);
 	console.log("this is the hourNow: " + hourNow);
 	if (tData === hourNow) {
-		timeBlocksEl[i].classlist.add("present");
+		timeBlocksEl[i].classList.add("present");
+	} else if (tData < hourNow) {
+		timeBlocksEl[i].classList.add("past");
+	} else if (tData > hourNow) {
+		timeBlocksEl[i].classList.add("future");
 	}
 }
 
