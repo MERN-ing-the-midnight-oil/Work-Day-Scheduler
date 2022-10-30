@@ -1,4 +1,4 @@
-//pass the textarea value from memory to the value of the element
+//passes the textarea value from memory to the text area value of the specified element
 $("#nineTextarea").val(localStorage.getItem("nineTextarea")); //gives the item in local storage to the val of #nineTextarea //
 $("#tenTextarea").val(localStorage.getItem("tenTextarea"));
 $("#elevenTextarea").val(localStorage.getItem("elevenTextarea"));
@@ -43,10 +43,13 @@ setInterval(function () {
 		var westCoast = hoursRemainder - 7; //subtracts 7 from GMT to get pacific time zone time the same day
 	}
 	$("#pacific").text(westCoast);
-	// if westCoast <0 THEN  westCoast = westCoast + 24 //to solve the late night converstion problem
+	//////////////////////////////////
+
+	//test that I know how to get the value of an element ID
+	console.log(document.getElementsByTagName("div"[0].id));
 }, 1000);
 
-//I want to add a class to a timeblock when a condition is met
+//I want to use jquery to add a class to a timeblock when a condition is met
 //specifically when the current time is greater than the div's blockstart time, then assign the .past class selector to the div
 //another way to say it-  when the value of the div id is greater than  westCoast style it "future"
 //then put th whole thing in a set interval function
