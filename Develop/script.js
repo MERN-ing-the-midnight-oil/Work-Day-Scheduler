@@ -1,6 +1,3 @@
-//I want to add a class to a timeblock when a condition is met
-//specifically when the current time is greater than the div's blockstart time, then get .past class
-
 //pass the textarea value from memory to the value of the element
 $("#nineTextarea").val(localStorage.getItem("nineTextarea")); //gives the item in local storage to the val of #nineTextarea //
 $("#tenTextarea").val(localStorage.getItem("tenTextarea"));
@@ -51,6 +48,13 @@ setInterval(function () {
 	$("#pacific").text(westCoast);
 	// if westCoast <0 THEN  westCoast = westCoast + 24 //to solve the late night converstion problem
 }, 1000);
+
+//I want to add a class to a timeblock when a condition is met
+//specifically when the current time is greater than the div's blockstart time, then get .past class
+//another way to say it-  when the value of the div id is greater than  westCoast style it "future"
+// setInterval(function () {
+// 	if (westCoast > )
+// }, 1000);
 
 // WHEN I open the planner
 // THEN the current day is displayed at the top of the calendar
