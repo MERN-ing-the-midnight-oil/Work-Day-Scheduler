@@ -1,4 +1,11 @@
-//passes the textarea value from memory to the text area value of the specified element
+//hooks to dom
+var timeBlocksEl = document.querySelectorAll("textarea[data-time]");
+console.log("this is the timeBlocksEl " + timeBlocksEl);
+
+var todayIs = moment();
+$("#todayIs").text(todayIs.format("MMM Do, YYYY"));
+
+//Persisting data from local storage///////////passes the textarea value from memory to the text area value of the specified element
 $("#nineTextarea").val(localStorage.getItem("nineTextarea")); //gives the item in local storage to the val of #nineTextarea //
 $("#tenTextarea").val(localStorage.getItem("tenTextarea"));
 $("#elevenTextarea").val(localStorage.getItem("elevenTextarea"));
@@ -9,6 +16,7 @@ $("#threeTextarea").val(localStorage.getItem("fifteenTextarea"));
 $("#fourTextarea").val(localStorage.getItem("sixteenTextarea"));
 $("#fiveTextarea").val(localStorage.getItem("seventeenTextarea"));
 
+//Adding data to local storage///////
 $(".saveBtn").on("click", function () {
 	//event listener , listening for clicks, on any save button
 	var textvalue = $(this).siblings(".textarea").val(); //textvalue gets the value of the sibling with textarea class
@@ -18,45 +26,26 @@ $(".saveBtn").on("click", function () {
 	// key =(Btn to textarea to textarea ID)
 });
 
-/////////////////////
-//TIME STUFF
-////////////////
-var todayIs = moment();
-$("#todayIs").text(todayIs.format("MMM Do, YYYY"));
+var hourNow = moment().format("HH");
+console.log("the hour now is " + hourNow); //checking that hourNow works
 
-////////////setInterval calls the function every specified milliseconds
+//Displaying the current time in the jumbotron
 setInterval(function () {
 	var timeNow = moment().format("hh:mm:ss");
 	$("#timeNow").text(timeNow);
 }, 1000);
 
-setInterval(function () {
-	//This  function displays the current time, "westCoast" in the Jumbotron
-	// it converts epoch time to the military hour of the day (west coast time). epoch time is set to GMT, 7 hours ahead.
-	// I had to figure out when to subract 7 hours, and when to add 17. You can't subtract 7 hours early in the day or you get a negative time value.
-	var epochTimeNow = moment().format("X");
-	var secondsRemainder = epochTimeNow % 86400; // used modulus, should be the number of seconds happening since after our last midnight
-	var hoursRemainder = secondsRemainder / 3600; //shoud be the military hour, GMT
-	if (hoursRemainder < 7) {
-		var westCoast = hoursRemainder + 17; //adds 17 to GMT to get pacific time zone time the day before
-	} else {
-		var westCoast = hoursRemainder - 7; //subtracts 7 from GMT to get pacific time zone time the same day
+/////////////DOING THE CONDITIONAL STYLING	///////////////////////////
+for (let i = 0; i < timeBlocksEl.length; i++) {
+	var tData = timeBlocksEl[i].dataset.time;
+	console.log(
+		"this is the tData, which should come frome timeBlocksEl: " + tData
+	);
+	console.log("this is the hourNow: " + hourNow);
+	if (tData === hourNow) {
+		timeBlocksEl[i].classlist.add("present");
 	}
-	$("#pacific").text(westCoast);
-	//////////////////////////////////
-
-	//test that I know how to get the value of an element ID
-	console.log(document.getElementsByTagName("div"[0].id));
-}, 1000);
-
-//I want to use jquery to add a class to a timeblock when a condition is met
-//specifically when the current time is greater than the div's blockstart time, then assign the .past class selector to the div
-//another way to say it-  when the value of the div id is greater than  westCoast style it "future"
-//then put th whole thing in a set interval function
-//examples of removing and adding a class (from a different project)
-//gameOver.classList.remove("hidden");
-//	timerEl.classList.add("hidden");
-//.hidden {display:none} in CSS     class.classlist.add"hidden"
+}
 
 // WHEN I open the planner
 // THEN the current day is displayed at the top of the calendar
@@ -76,3 +65,16 @@ setInterval(function () {
 
 // WHEN I refresh the page
 // THEN the saved events persist
+
+//This  function displays the current time, "westCoast" in the Jumbotron
+// it converts epoch time to the military hour of the day (west coast time). epoch time is set to GMT, 7 hours ahead.
+// I had to figure out when to subract 7 hours, and when to add 17. You can't subtract 7 hours early in the day or you get a negative time value.
+// var epochTimeNow = moment().format("X");
+// var secondsRemainder = epochTimeNow % 86400; // used modulus, should be the number of seconds happening since after our last midnight
+// var hoursRemainder = secondsRemainder / 3600; //shoud be the military hour, GMT
+// if (hoursRemainder < 7) {
+// 	var westCoast = hoursRemainder + 17; //adds 17 to GMT to get pacific time zone time the day before
+// } else {
+// 	var westCoast = hoursRemainder - 7; //subtracts 7 from GMT to get pacific time zone time the same day
+// }
+// $("#pacific").text(westCoast);
