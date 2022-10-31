@@ -25,29 +25,26 @@ $(".saveBtn").on("click", function () {
 	//put a "key" and a "value " into local storage
 	// key =(Btn to textarea to textarea ID)
 });
-
-var hourNow = moment().format("HH");
-console.log("the hour now is " + hourNow); //checking that hourNow works
-
 //Displaying the current time in the jumbotron
 setInterval(function () {
 	var timeNow = moment().format("hh:mm:ss");
 	$("#timeNow").text(timeNow);
 }, 1000);
 
+var hourNow = moment().format("HH");
+console.log("this is the hournow " + hourNow);
+
 /////////////DOING THE CONDITIONAL STYLING	///////////////////////////
 for (let i = 0; i < timeBlocksEl.length; i++) {
 	var tData = timeBlocksEl[i].dataset.time;
-	console.log(
-		"this is the tData, which should come frome timeBlocksEl: " + tData
-	);
-	console.log("this is the hourNow: " + hourNow);
+	console.log("this is the tData: " + tData);
+	console.log("this is still the hourNow: " + hourNow);
 	if (tData === hourNow) {
-		timeBlocksEl[i].classList.add("present");
+		timeBlocksEl[i].classList.add("present"); //red
 	} else if (tData < hourNow) {
-		timeBlocksEl[i].classList.add("past");
+		timeBlocksEl[i].classList.add("past"); //grey
 	} else if (tData > hourNow) {
-		timeBlocksEl[i].classList.add("future");
+		timeBlocksEl[i].classList.add("future"); //green
 	}
 }
 
